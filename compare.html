@@ -1,0 +1,67 @@
+<head>
+  <title>compare</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <br>
+            <div class="span12">{{loginButtons}}</div>
+            <div class="span12">
+                {{> base}}
+                {{> msgForm}}
+                {{> main}}
+                {{renderPage}}
+            </div>
+        </div>
+    </div>
+</body>
+
+<template name="base">
+    <h1 class="title">Ololol</h1>
+</template>
+
+<template name="msgForm">
+<div class="span12"><button class="btn" id="open-form">Start new compare</button></div>
+<div class="well span8" id="send-form">
+    <form id="forma" class="form-horizontal">
+      <div class="control-group">
+        <label for="title" class="control-label">Title</label>
+        <div class="controls">
+          <input type="text" name="title" id="title"/>
+        </div>
+        <label for="title" class="control-label">Message</label>
+        <div class="controls">
+          <textarea name="body" class="input-xxlarge" id="body" rows="5"></textarea>
+        </div>
+        <label for="file" class="control-label">Image 1</label>
+        <div class="controls">
+          <input type="file" id="store-input" name="file">
+        </div>
+        <label for="file1" class="control-label">Image 2</label>
+        <div class="controls">
+          <input type="file" id="store-input" name="file1">
+        </div>
+        <div class="controls">
+          <input type="submit" class="btn-block" id="send" value="Post"/>
+          <div class="error-msg"></div>
+          <div class="success-msg"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<template name="main">
+        <div class="color"></div>
+        <div class="compare"><img src="cat1.jpg" class="img-circle"> VS <img src="cat2.jpeg" class="img-circle"></div>
+            <div class="question">
+                <h4>Which cat is better? Love them both</h4>
+                <span>Which cat is better?</span>
+                <span><em>posted by:</em> <span class="user-name">someone</span></span>
+            </div>
+        </div>
+        <hr>
+</template>
+
+

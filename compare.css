@@ -1,0 +1,49 @@
+.title {
+    color: orange;
+    text-align: center;
+}
+
+.img-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    -webkit-border-radius: 70px;
+    -moz-border-radius: 70px;
+}
+
+#send-form {
+    margin-right: 50%;
+    display: none;
+    margin-top: 10px;
+}
+
+.compare {
+    float: left;
+}
+
+.question {
+    text-align: left;
+    vertical-align: middle;
+    line-height: 100px;
+    display: block;
+}
+
+.question-sign {
+    text-align: right;
+}
+
+.user-name {
+    font-style: italic;
+}
+
+#open-form {
+    margin-bottom: 10px;
+}
+
+.color {
+    background-color: red;
+    height: 140px;
+    width: 4px;
+    margin-right: 5px;
+    float: left;
+}
