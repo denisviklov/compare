@@ -9,3 +9,5 @@ preserve-inputs
 accounts-ui
 bootstrap
 accounts-facebook
+filepicker
+router

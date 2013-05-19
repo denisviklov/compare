@@ -1,49 +1,59 @@
 <head>
-  <title>compare</title>
+  <title>Get a fresh look</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <div class="container">
-        <div class="row">
-            <br>
-            <div class="span12">{{loginButtons}}</div>
-            <div class="span12">
-                {{> base}}
-                {{> msgForm}}
-                {{> main}}
-                {{renderPage}}
-            </div>
+        <br>
+        <div class="span12">{{loginButtons}}</div>
+        <div class="span12">
+            {{renderPage}}
         </div>
     </div>
 </body>
 
 <template name="base">
-    <h1 class="title">Ololol</h1>
+    <h3 class="title">Подскажи мне</h3>
+    {{> msgForm}}
 </template>
 
 <template name="msgForm">
-<div class="span12"><button class="btn" id="open-form">Start new compare</button></div>
-<div class="well span8" id="send-form">
+<div class="span12"><button class="btn" id="open-form">Новое сравнение</button></div>
+<div class="well span6" id="send-form">
     <form id="forma" class="form-horizontal">
       <div class="control-group">
-        <label for="title" class="control-label">Title</label>
+        <label class="control-label">Категория </label>
+        <div class="controls">
+          <select name="type" id="type">
+            <option value="business">бизнес</option>
+            <option value="entertainment">развлечения</option>
+            <option value="tech">техника</option>
+            <option value="life style">образ жизни</option>
+            <option value="politics">политика</option>
+          </select>
+        </div>        
+      </div>  
+      <div class="control-group">
+        <label for="title" class="control-label">Заголовок</label>
         <div class="controls">
           <input type="text" name="title" id="title"/>
         </div>
-        <label for="title" class="control-label">Message</label>
+      </div>
+      <div class="control-group">
+        <label for="title" class="control-label">Сообщение</label>
         <div class="controls">
-          <textarea name="body" class="input-xxlarge" id="body" rows="5"></textarea>
+          <textarea name="body" class="input-large" id="body" rows="5"></textarea>
         </div>
-        <label for="file" class="control-label">Image 1</label>
-        <div class="controls">
-          <input type="file" id="store-input" name="file">
         </div>
-        <label for="file1" class="control-label">Image 2</label>
+        <div class="control-group">
+        <label for="file" class="control-label">Одна картинка для совета, две для сравнения</label>
         <div class="controls">
-          <input type="file" id="store-input" name="file1">
+        <input type="filepicker-dragdrop" data-fp-multiple="true" id="file-store" data-fp-apikey="AFjwxOmtYSISM553OZc3Az"  data-fp-services="FACEBOOK,GOOGLE_DRIVE,DROPBOX,GMAIL,BOX,FLICKR,GITHUB,WEBCAM" data-fp-mimetype="image/*"/>
+        </div>
         </div>
         <div class="controls">
-          <input type="submit" class="btn-block" id="send" value="Post"/>
+          <input type="submit" class="btn" id="send" value="Post"/>
           <div class="error-msg"></div>
           <div class="success-msg"></div>
         </div>
@@ -53,15 +63,105 @@
 </template>
 
 <template name="main">
-        <div class="color"></div>
-        <div class="compare"><img src="cat1.jpg" class="img-circle"> VS <img src="cat2.jpeg" class="img-circle"></div>
-            <div class="question">
-                <h4>Which cat is better? Love them both</h4>
-                <span>Which cat is better?</span>
-                <span><em>posted by:</em> <span class="user-name">someone</span></span>
+        {{> base}}
+        {{#each comps}}
+        <div class="span12 section" id="{{_id}}">
+            <div class="color"></div>
+            {{#if subject}}
+                <div class="compare">
+                    <img src="{{f1_url}}" class="img-circle"> 
+                    <span class="or"><b>ИЛИ</b></span>
+                    <img src="{{f2_url}}" class="img-circle">
+                </div>
+            {{else}}
+                <div class="compare"><img src="{{f1_url}}" class="img-circle"></div>
+            {{/if}}
+                <div class="span6 question">
+                    <h5>{{title}}</h5>
+                    <p>{{body}}</p>
+                    <span><em>оставил: </em> <span class="user-name">{{username}}</span></span>
+                </div>
             </div>
-        </div>
+            
+            <div class="span12 rate">{{#if type}}A: {{a}} | Б: {{b}}{{else}}Да: {{a}} | Нет: {{b}}{{/if}}</div>
         <hr>
+        </div>          
+        {{/each}}
+</template>
+
+<template name="commentForm">
+    <div class="span12"><button class="btn" id="open-comment-form">Оставить комментарий</button></div>
+    <div class="well span6" style="display: none;" id="comment-form">
+        <form class="form-horizontal">
+           <div class="control-group">
+                <label for="comment" class="control-label">Комментарий</label>
+                <div class="controls">
+                  <textarea name="comment" class="input-large" id="comment" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="controls">
+                <input type="submit" value="Send">
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="details">
+    {{#with currentPost}}
+        {{#if subject}}
+            <div class="span12 compare">
+                <img src="{{f1_url}}" class="img-circle-details">
+                <span class="or"><b>ИЛИ</b></span> <img src="{{f2_url}}" class="img-circle-details">
+            </div>
+        {{else}}
+            <div class="span12 compare"><img src="{{f1_url}}" class="img-circle-details"></div>
+        {{/if}}
+        {{#if currentUser}}
+        {{#if type}}
+        <div class="span12" style="margin-top: 5px;">
+            <label class="radio">
+            <input type="radio" name="optionsRadios" id="a" value="option1" checked>
+            A
+            </label>
+            <label class="radio">
+            <input type="radio" name="optionsRadios" id="b" value="option2">
+            B
+            </label>
+            <button class="btn" id="voit">Голосовать</button>
+        </div>
+        {{else}}
+        <div class="span12" style="margin-top: 5px;">
+            <label class="radio">
+            <input type="radio" name="optionsRadios" id="a" value="option1" checked>
+            Да
+            </label>
+            <label class="radio">
+            <input type="radio" name="optionsRadios" id="b" value="option2">
+            Нет
+            </label>
+            <button class="btn" id="voit">Голосовать</button>
+        </div>
+        {{/if}}
+        {{/if}}
+            <div class="span12" style="margin-bottom: 15px;">
+                <h4>{{title}}</h4>
+                <p>{{body}}</p>
+                <span><em>написал:</em><span class="user-name">{{username}}</span></span>
+            </div>
+            <hr>
+            <p><b>Комментарии: </b></p>
+            {{#each comments}}
+            <div class="span12">
+                <hr>
+                <p>{{text}}</p>
+                <span><i>{{username}}</i></span>
+            </div>
+            {{/each}}
+    {{/with}}
+    <br>
+    {{#if currentUser}}
+        {{> commentForm}}
+    {{/if}}
 </template>
 
 
