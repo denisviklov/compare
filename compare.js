@@ -51,16 +51,24 @@ if (Meteor.isClient) {
       var body = $(event.target).find('[name=body]').val();
       var category = $(event.target).find('#type :selected').val();
       var user_name = Meteor.user() ? Meteor.user().profile.name : 'anonymous';
+      var clean_form = function(){
+        $('#send-form').toggle();
+        $('#body').val(' ');
+        $('#title').val(' ');
+        $('#file-store').val(' ');
+      };
       if(title && body && category){
         if(f1_url && f2_url){
           Compares.insert({'subject': true, 'title': title, 'body': body, 'category': category,
             'user_id': Meteor.user._id, 'f1_url': f1_url, 'f2_url': f2_url, 'comments': [], 'a': 0, 'b': 0,
             username: user_name, updated: new Date});
+          clean_form();
         }
         else if(f1_url){
           Compares.insert({'subject': false, 'title': title, 'body': body, 'category': category,
             'user_id': Meteor.user._id, 'f1_url': f1_url, 'comments': [], 'a': 0, 'b': 0,
-            username: user_name, updated: new Date}); 
+            username: user_name, updated: new Date});
+            clean_form(); 
        }else{
         console.log('Error: You should upload a file');
        }
@@ -95,6 +103,8 @@ if (Meteor.isClient) {
       if (comment){
         Compares.update({_id: Session.get('currentPostId')}, {$push: {'comments':{'text': comment, 'username': user_id}}, 
           $set:{'updated': new Date}});
+        $('#comment-form').toggle();
+        $('#comment').val(' ');
       }else{console.log('Error: Need a valid comment for post')}
     },
     'click #open-comment-form': function(event){

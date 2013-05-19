@@ -83,7 +83,7 @@
                 </div>
             </div>
             
-            <div class="span12 rate">{{#if type}}A: {{a}} | Б: {{b}}{{else}}Да: {{a}} | Нет: {{b}}{{/if}}</div>
+            <div class="span12 rate">{{#if subject}}A: {{a}} | Б: {{b}}{{else}}Да: {{a}} | Нет: {{b}}{{/if}}</div>
         <hr>
         </div>          
         {{/each}}
@@ -117,31 +117,31 @@
             <div class="span12 compare"><img src="{{f1_url}}" class="img-circle-details"></div>
         {{/if}}
         {{#if currentUser}}
-        {{#if type}}
-        <div class="span12" style="margin-top: 5px;">
-            <label class="radio">
-            <input type="radio" name="optionsRadios" id="a" value="option1" checked>
-            A
-            </label>
-            <label class="radio">
-            <input type="radio" name="optionsRadios" id="b" value="option2">
-            B
-            </label>
-            <button class="btn" id="voit">Голосовать</button>
-        </div>
-        {{else}}
-        <div class="span12" style="margin-top: 5px;">
-            <label class="radio">
-            <input type="radio" name="optionsRadios" id="a" value="option1" checked>
-            Да
-            </label>
-            <label class="radio">
-            <input type="radio" name="optionsRadios" id="b" value="option2">
-            Нет
-            </label>
-            <button class="btn" id="voit">Голосовать</button>
-        </div>
-        {{/if}}
+            {{#if subject}}
+                <div class="span12" style="margin-top: 5px;">
+                    <label class="radio">
+                    <input type="radio" name="optionsRadios" id="a" value="option1" checked>
+                    A
+                    </label>
+                    <label class="radio">
+                    <input type="radio" name="optionsRadios" id="b" value="option2">
+                    B
+                    </label>
+                    <button class="btn" id="voit">Голосовать</button>
+                </div>
+            {{else}}
+                <div class="span12" style="margin-top: 5px;">
+                    <label class="radio">
+                    <input type="radio" name="optionsRadios" id="a" value="option1" checked>
+                    Да
+                    </label>
+                    <label class="radio">
+                    <input type="radio" name="optionsRadios" id="b" value="option2">
+                    Нет
+                    </label>
+                    <button class="btn" id="voit">Голосовать</button>
+                </div>
+            {{/if}}
         {{/if}}
             <div class="span12" style="margin-bottom: 15px;">
                 <h4>{{title}}</h4>
